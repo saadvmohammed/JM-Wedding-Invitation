@@ -226,6 +226,17 @@ body[data-theme="ivory-marble"] .theme-toggle-btn .icon-moon {
   transform: rotate(0deg);
 }
 
+.audio-btn {
+  opacity: 0.65;
+  filter: grayscale(0.8);
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+}
+
+.audio-btn.playing {
+  opacity: 1;
+  filter: drop-shadow(0 0 10px var(--gold-light));
+}
+
 .audio-btn.playing #audioIcon {
   animation: pulseBeat 1.2s infinite ease-in-out;
 }
@@ -1386,6 +1397,10 @@ body[data-theme="midnight-gold"] .map-link-btn:hover {
 }
 
 .action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   padding: 12px 22px;
   border-radius: 25px;
   border: 1.5px solid var(--gold-primary);
@@ -1415,10 +1430,20 @@ body[data-theme="midnight-gold"] .action-btn:hover {
 }
 
 .footer-monogram-img {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.celebration-expired-badge {
+  font-family: var(--font-script);
+  font-size: 2.8rem;
+  color: var(--gold-bright);
+  text-align: center;
+  padding: 20px 10px;
+  line-height: 1.3;
+  animation: pulseBeat 2s infinite ease-in-out;
 }
 
 .site-footer {

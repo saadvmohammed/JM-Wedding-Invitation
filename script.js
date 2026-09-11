@@ -263,8 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (envelopeOpened) return;
     envelopeOpened = true;
 
-    // Reset scroll position to top of page (Hero Section)
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Reset scroll position to top of page (Hero Section) with 'auto' for max compatibility
+    window.scrollTo({ top: 0, behavior: 'auto' });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
 
@@ -276,10 +276,9 @@ document.addEventListener('DOMContentLoaded', () => {
         envelopeOverlay.classList.add('opened');
         setTimeout(() => {
           envelopeOverlay.style.display = 'none';
-          window.scrollTo({ top: 0, behavior: 'instant' });
+          window.scrollTo({ top: 0, behavior: 'auto' });
         }, 800);
       }
-      startAmbientMusic();
     }, 800);
   }
 
@@ -300,48 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => m.classList.remove('pop-anim'), 600);
     });
   });
-
-  /* ------------------------------------------------------------------------
-     5. Add to Calendar (.ics File Generator)
-     ------------------------------------------------------------------------ */
-  const addToCalendarBtn = document.getElementById('addToCalendarBtn');
-
-  if (addToCalendarBtn) {
-    addToCalendarBtn.addEventListener('click', () => {
-      const icsData = 
-`BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Noor-E-Chashme & Mohammed Jasim Wedding//EN
-CALSCALE:GREGORIAN
-METHOD:PUBLISH
-BEGIN:VEVENT
-SUMMARY:Nikah & Valima — Noor-E-Chashme & Mohammed Jasim
-DESCRIPTION:Together with family Vallur Parvez Ahmed Sahib, seeks your gracious presence on the occasion of the Nikah & Valima.
-LOCATION:Masjid-e-Madinal Uloom & NKZ Convention Hall, Vaniyambadi - 635751
-DTSTART:20261015T070000Z
-DTEND:20261015T123000Z
-STATUS:CONFIRMED
-SEQUENCE:0
-BEGIN:VALARM
-TRIGGER:-PT2H
-DESCRIPTION:Reminder: Nikah Ceremony of Noor-E-Chashme & Mohammed Jasim
-ACTION:DISPLAY
-END:VALARM
-END:VEVENT
-END:VCALENDAR`;
-
-      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'Nikah_Ceremony_Noor_and_Jasim.ics');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      showToast('📅 Calendar Event (.ics) Downloaded!');
-    });
-  }
 
   /* ------------------------------------------------------------------------
      6. Web Share API & Link Copy Fallback
@@ -387,7 +344,7 @@ END:VCALENDAR`;
      7. Live Countdown Timer (15 Oct 2026, 12:30 PM IST)
      ------------------------------------------------------------------------ */
   const targetDate = new Date('2026-10-15T12:30:00+05:30').getTime();
-
+  const timerGrid = document.getElementById('timerGrid');
   const daysEl = document.getElementById('days');
   const hoursEl = document.getElementById('hours');
   const minutesEl = document.getElementById('minutes');
@@ -397,11 +354,10 @@ END:VCALENDAR`;
     const now = new Date().getTime();
     const distance = targetDate - now;
 
-    if (distance < 0) {
-      if (daysEl) daysEl.innerText = '00';
-      if (hoursEl) hoursEl.innerText = '00';
-      if (minutesEl) minutesEl.innerText = '00';
-      if (secondsEl) secondsEl.innerText = '00';
+    if (distance <= 0) {
+      if (timerGrid) {
+        timerGrid.innerHTML = '<div class="celebration-expired-badge">Today is the day! 🌙</div>';
+      }
       return;
     }
 
