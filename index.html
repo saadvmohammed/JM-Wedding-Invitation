@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Noor-E-Chashme &amp; Mohammed Jasim — Wedding Invitation</title>
+  
+  <!-- SEO & Open Graph Meta Tags -->
+  <meta name="description" content="Together with family Vallur Parvez Ahmed Sahib, seeks your gracious presence on the occasion of the Nikah & Valima of Noor-E-Chashme and Mohammed Jasim on Thursday, October 15, 2026.">
+  <meta property="og:title" content="Noor-E-Chashme &amp; Mohammed Jasim — Wedding Invitation">
+  <meta property="og:description" content="You are cordially invited to celebrate the Nikah & Valima of Noor-E-Chashme & Mohammed Jasim on Oct 15, 2026 at Vaniyambadi.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/jm-seal.svg">
+  <meta name="theme-color" content="#0d0d0f">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Google Fonts: Script, Formal Serif, & Body Serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;900&family=Great+Vibes&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="midnight-gold">
+
+  <!-- Floating Gold Bokeh Canvas Background (Theme A) -->
+  <canvas id="bokehCanvas"></canvas>
+  <!-- Ivory Marble Shimmer Overlay (Theme B) -->
+  <div id="marbleShimmerOverlay" class="marble-shimmer"></div>
+
+  <!-- FIXED TOP-RIGHT CONTROLS -->
+  <div class="fixed-top-controls">
+    <!-- Theme Swapper Button (Sun & Moon) -->
+    <button id="themeToggleBtn" class="control-btn theme-toggle-btn" aria-label="Toggle Theme (Midnight Gold / Ivory Marble)" title="Toggle Theme (Midnight Gold / Ivory Marble)">
+      <span class="icon-sun" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </span>
+      <span class="icon-moon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </span>
+    </button>
+
+    <!-- Audio Controls Button -->
+    <button id="audioToggle" class="control-btn audio-btn" aria-label="Toggle Background Music" title="Play/Pause Music">
+      <span class="audio-icon" id="audioIcon">🎵</span>
+      <span class="audio-text">Music</span>
+    </button>
+  </div>
+
+  <!-- SECTION 1: ENVELOPE INTRO SCREEN -->
+  <div id="envelopeOverlay" class="envelope-overlay">
+    <div class="envelope-wrapper">
+      <div class="envelope" id="envelope">
+        <div class="flap top-flap"></div>
+        <div class="pocket"></div>
+        <div class="letter-preview">
+          <div class="letter-inner">
+            <span class="preview-title">Nikah &amp; Valima</span>
+            <span class="preview-names">Noor-E-Chashme<br>&amp;<br>Mohammed Jasim</span>
+            <span class="preview-date">15 · 10 · 2026</span>
+          </div>
+        </div>
+        <!-- Wax Seal Monogram Button -->
+        <div class="wax-seal-container" id="waxSealBtn">
+          <img src="assets/jm-seal.svg" alt="JM Monogram Wax Seal" class="wax-seal-img interactive-monogram">
+          <div class="seal-ripple"></div>
+          <span class="tap-hint">Tap Seal to Open Invitation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN INVITATION CONTENT CONTAINER -->
+  <main id="mainContent" class="main-content">
+
+    <!-- SECTION 2: HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="art-deco-arch">
+        <div class="arch-border-outer"></div>
+        <div class="arch-border-inner"></div>
+        <div class="arch-content">
+
+          <!-- Personalized Guest Greeting Badge (via ?to=QueryParam) -->
+          <div id="guestGreetingBadge" class="guest-greeting-badge" style="display: none;">
+            <span class="greeting-pre">Dear</span>
+            <span id="guestNameText" class="guest-name-text"></span>
+          </div>
+
+          <div class="hero-header-badge">
+            <span class="gold-diamond">◆</span>
+            <span class="badge-text">Wedding Invitation</span>
+            <span class="gold-diamond">◆</span>
+          </div>
+          
+          <h2 class="hero-subheading">Nikah &amp; Valima</h2>
+          <p class="hero-date-badge">Thursday, October 15, 2026</p>
+
+          <div class="hero-names-wrapper">
+            <h1 class="hero-bride-name">Noor-E-Chashme</h1>
+            <div class="hero-ampersand">&amp;</div>
+            <h1 class="hero-groom-name">Mohammed Jasim</h1>
+          </div>
+
+          <div class="hero-monogram-display">
+            <img src="assets/jm-seal.svg" alt="JM Crest" class="hero-crest-img interactive-monogram" title="Tap monogram for easter egg">
+          </div>
+
+          <a href="#invocation" class="scroll-cue" aria-label="Scroll down to view details">
+            <span class="cue-text">Scroll to View</span>
+            <div class="scroll-arrow">↓</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INVOCATION & FORMAL INVITATION BLOCK -->
+    <section id="invocation" class="invocation-section reveal-on-scroll">
+      <div class="deco-card">
+        <div class="card-corner corner-tl"></div>
+        <div class="card-corner corner-tr"></div>
+        <div class="card-corner corner-bl"></div>
+        <div class="card-corner corner-br"></div>
+
+        <!-- Bismillah Calligraphy Graphic -->
+        <div class="bismillah-wrapper">
+          <img src="assets/bismillah.png" alt="Bismillah Calligraphy" class="bismillah-img">
+          <p class="bismillah-translation">IN THE NAME OF ALLAH</p>
+        </div>
+
+        <div class="invitation-intro">
+          <p class="intro-line-1">Together with family</p>
+          <h3 class="host-main-name">VALLUR PARVEZ AHMED SAHIB</h3>
+          <p class="intro-line-2">Seeks your Gracious Presence on the Occasion of the Nikah &amp; Valima of My Daughter</p>
+        </div>
+
+        <!-- Bride Details -->
+        <div class="person-block bride-block">
+          <h2 class="person-name">NOOR - E - CHASHME</h2>
+          <p class="lineage-line">D/o Janab Vallur Parvez Ahmed Sahib</p>
+          <p class="lineage-line">Paternal Grand D/o. Late Janab Vallur Ahmed Basha</p>
+          <p class="lineage-line">Maternal Grand D/o. Late Janab Aamina Noorullah Sahib</p>
+        </div>
+
+        <!-- WITH Divider -->
+        <div class="with-divider">
+          <span class="divider-line"></span>
+          <span class="with-text">WITH</span>
+          <span class="divider-line"></span>
+        </div>
+
+        <!-- Groom Details -->
+        <div class="person-block groom-block">
+          <h2 class="person-name">MOHAMMED JASIM CHOLAVARAM, <span class="degree">B.B.A.,</span></h2>
+          <p class="lineage-line">S/o Janab Cholavaram Abdul Rasheed Sahib</p>
+          <p class="lineage-line">Paternal Grand S/o. Late Janab Cholavaram Abdul Khalique Sahib</p>
+          <p class="lineage-line">Maternal Grand S/o. Late Janab Mandiya Abdul Subhan Sahib</p>
+        </div>
+
+        <!-- Date & Hijri Info -->
+        <div class="inshallah-block">
+          <h3 class="inshallah-title">INSHALLAH</h3>
+          <p class="event-gregorian-date">Thursday, October 15, 2026</p>
+          <p class="event-hijri-date">3rd Jamadil Awwal 1448 H</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: COUNTDOWN TIMER -->
+    <section id="countdown" class="countdown-section reveal-on-scroll">
+      <div class="section-title-wrapper">
+        <span class="gold-diamond">◆</span>
+        <h2 class="section-title">The Celebration Begins In</h2>
+        <span class="gold-diamond">◆</span>
+      </div>
+
+      <div class="timer-grid" id="timerGrid">
+        <div class="timer-box">
+          <span class="timer-num" id="days">00</span>
+          <span class="timer-label">Days</span>
+        </div>
+        <div class="timer-colon">:</div>
+        <div class="timer-box">
+          <span class="timer-num" id="hours">00</span>
+          <span class="timer-label">Hours</span>
+        </div>
+        <div class="timer-colon">:</div>
+        <div class="timer-box">
+          <span class="timer-num" id="minutes">00</span>
+          <span class="timer-label">Minutes</span>
+        </div>
+        <div class="timer-colon">:</div>
+        <div class="timer-box">
+          <span class="timer-num" id="seconds">00</span>
+          <span class="timer-label">Seconds</span>
+        </div>
+      </div>
+      <p class="timer-target-note">Target: 15th October 2026 at 12:30 PM IST</p>
+    </section>
+
+    <!-- SECTION 5: SCHEDULE OF EVENTS (VERTICAL TIMELINE) -->
+    <section id="timeline" class="timeline-section reveal-on-scroll">
+      <div class="section-title-wrapper">
+        <span class="gold-diamond">◆</span>
+        <h2 class="section-title">Schedule of Events</h2>
+        <span class="gold-diamond">◆</span>
+      </div>
+
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+
+        <!-- Timeline Item 1: Nikah -->
+        <div class="timeline-item reveal-on-scroll">
+          <div class="timeline-marker">
+            <span class="marker-diamond">◆</span>
+          </div>
+          <div class="timeline-card">
+            <div class="event-badge">Ceremony 1</div>
+            <h3 class="event-name">NIKAH CEREMONY</h3>
+            <div class="event-time">
+              <span class="time-icon">🕒</span> 12:30 PM
+            </div>
+            <p class="event-location">
+              <strong>Masjid-e-Madinal Uloom</strong>
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 2: Valima -->
+        <div class="timeline-item reveal-on-scroll">
+          <div class="timeline-marker">
+            <span class="marker-diamond">◆</span>
+          </div>
+          <div class="timeline-card">
+            <div class="event-badge">Reception</div>
+            <h3 class="event-name">VALIMA RECEPTION</h3>
+            <div class="event-time">
+              <span class="time-icon">🕒</span> After Nikah
+            </div>
+            <p class="event-location">
+              <strong>NKZ Convention Hall</strong><br>
+              Valayampet, Vaniyambadi - 635751<br>
+              <span class="sub-location">(Opposite Masjid-e-Zubair)</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: VENUE SECTION WITH MAPS -->
+    <section id="venues" class="venues-section reveal-on-scroll">
+      <div class="section-title-wrapper">
+        <span class="gold-diamond">◆</span>
+        <h2 class="section-title">Venue Details &amp; Directions</h2>
+        <span class="gold-diamond">◆</span>
+      </div>
+
+      <div class="mosque-art-wrapper">
+        <img src="assets/mosque-art.svg" alt="Mosque Line Art Illustration" class="mosque-svg">
+      </div>
+
+      <div class="venues-grid">
+        <!-- Venue Card 1: Nikah -->
+        <div class="venue-card">
+          <div class="venue-header">
+            <span class="venue-icon">🕌</span>
+            <h3 class="venue-title">Masjid-e-Madinal Uloom</h3>
+            <p class="venue-type">Nikah Ceremony Venue</p>
+          </div>
+          <p class="venue-address">Vaniyambadi, Tamil Nadu - 635751</p>
+          
+          <div class="map-embed-container">
+            <iframe 
+              title="Masjid-e-Madinal Uloom Map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15582.78440012356!2d78.6083!3d12.6845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bacb49987654321%3A0x1234567890abcdef!2sMasjid-e-Madinal%20Uloom%2C%20Vaniyambadi!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+              width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <a href="https://maps.google.com/?q=Masjid-e-Madinal+Uloom+Vaniyambadi" target="_blank" rel="noopener" class="map-link-btn">
+            <span>📍 Open Masjid in Google Maps</span>
+          </a>
+        </div>
+
+        <!-- Venue Card 2: Valima -->
+        <div class="venue-card">
+          <div class="venue-header">
+            <span class="venue-icon">🏛️</span>
+            <h3 class="venue-title">NKZ Convention Hall</h3>
+            <p class="venue-type">Valima Reception Venue</p>
+          </div>
+          <p class="venue-address">Valayampet, Vaniyambadi - 635751<br><small>(Opposite Masjid-e-Zubair)</small></p>
+          
+          <div class="map-embed-container">
+            <iframe 
+              title="NKZ Convention Hall Map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15582.78440012356!2d78.6183!3d12.6945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bacb49987654322%3A0x1234567890abcde1!2sNKZ%20Convention%20Hall%2C%20Valayampet%2C%20Vaniyambadi!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+              width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <a href="https://maps.google.com/?q=NKZ+Convention+Hall+Valayampet+Vaniyambadi" target="_blank" rel="noopener" class="map-link-btn">
+            <span>📍 Open Hall in Google Maps</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: CLOSING SECTION -->
+    <section id="closing" class="closing-section reveal-on-scroll">
+      <div class="closing-content">
+        <h2 class="blessing-title">May Allah Bless This Union</h2>
+        
+        <div class="gold-divider-small">◆ ◆ ◆</div>
+
+        <div class="contact-block">
+          <p class="contact-label">For Enquiries &amp; Information:</p>
+          <div class="contact-links">
+            <a href="tel:+919791398776" class="phone-link">📱 97913 98776</a>
+            <span class="phone-sep">&bull;</span>
+            <a href="tel:+918925546281" class="phone-link">📱 89255 46281</a>
+            <span class="phone-sep">&bull;</span>
+            <a href="tel:+918643033733" class="phone-link">📱 86430 33733</a>
+          </div>
+        </div>
+
+        <div class="host-address-card">
+          <h4 class="host-title">Host &amp; Residence Address</h4>
+          <p class="host-name-detail">Vallur Parvez Ahmed</p>
+          <p class="address-line">489/G2-16, Jinnah Road, Khaderpet</p>
+          <p class="address-line">Vaniyambadi - 635751</p>
+        </div>
+
+        <p class="warm-closing-signature">With love —<br><strong>Vallur Parvez Ahmed &amp; Family.</strong></p>
+
+        <!-- ACTION BUTTONS: ADD TO CALENDAR & SHARE INVITATION -->
+        <div class="action-buttons-group">
+          <button id="addToCalendarBtn" class="action-btn calendar-btn">
+            <span>📅 Add to Calendar</span>
+          </button>
+          <button id="shareInviteBtn" class="action-btn share-btn">
+            <span>🔗 Share Invitation</span>
+          </button>
+        </div>
+
+        <div class="footer-monogram-wrapper">
+          <img src="assets/jm-seal.svg" alt="JM Seal Monogram" class="footer-monogram-img interactive-monogram" title="Tap monogram for easter egg">
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p>© 2026 Noor-E-Chashme &amp; Mohammed Jasim Wedding Invitation</p>
+    </footer>
+  </main>
+
+  <!-- TOAST NOTIFICATION FOR COPY FEEDBACK -->
+  <div id="toastNotification" class="toast-notification" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
