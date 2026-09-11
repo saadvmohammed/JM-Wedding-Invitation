@@ -212,15 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scratchedThresholdMet = true;
 
     if (scratchCanvas) scratchCanvas.classList.add('fade-out');
-
-    setTimeout(() => {
-      if (scratchOverlay) {
-        scratchOverlay.classList.add('fade-out');
-        setTimeout(() => {
-          scratchOverlay.style.display = 'none';
-        }, 800);
-      }
-    }, 1000);
+    if (scratchHint) scratchHint.classList.add('hidden');
   }
 
   if (scratchCanvas) {
@@ -259,9 +251,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     3. Envelope Opening & Wax Seal Trigger
+     3. Envelope Opening & Wax Seal Trigger (Full Target Hitbox & Scroll Reset)
      ------------------------------------------------------------------------ */
   const envelopeOverlay = document.getElementById('envelopeOverlay');
+  const envelopeWrapper = document.querySelector('.envelope-wrapper');
   const envelope = document.getElementById('envelope');
   const waxSealBtn = document.getElementById('waxSealBtn');
   let envelopeOpened = false;
@@ -269,6 +262,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function openEnvelope() {
     if (envelopeOpened) return;
     envelopeOpened = true;
+
+    // Reset scroll position to top of page (Hero Section)
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 
     if (envelope) envelope.classList.add('open');
     playEnvelopeChimeSound();
@@ -278,6 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         envelopeOverlay.classList.add('opened');
         setTimeout(() => {
           envelopeOverlay.style.display = 'none';
+          window.scrollTo({ top: 0, behavior: 'instant' });
         }, 800);
       }
       startAmbientMusic();
@@ -286,6 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (waxSealBtn) waxSealBtn.addEventListener('click', openEnvelope);
   if (envelope) envelope.addEventListener('click', openEnvelope);
+  if (envelopeWrapper) envelopeWrapper.addEventListener('click', openEnvelope);
   if (envelopeOverlay) envelopeOverlay.addEventListener('click', openEnvelope);
 
   /* ------------------------------------------------------------------------
