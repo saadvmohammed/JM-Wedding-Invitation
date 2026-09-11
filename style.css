@@ -1460,3 +1460,172 @@ body[data-theme="midnight-gold"] .action-btn:hover {
     font-size: 2.4rem;
   }
 }
+
+/* ==========================================================================
+   Comprehensive Mobile Responsiveness Adjustments (< 600px)
+   ========================================================================== */
+@media (max-width: 599px) {
+  /* Controls Header */
+  .fixed-top-controls {
+    top: 12px;
+    right: 12px;
+    gap: 8px;
+  }
+  .control-btn {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
+
+  /* Scratch Teaser Card */
+  .scratch-card-wrapper {
+    width: 90vw;
+    max-width: 340px;
+    height: min(450px, calc(100vh - 100px));
+  }
+  .scratch-revealed-names {
+    font-size: 1.8rem;
+  }
+  .scratch-revealed-date {
+    font-size: 1.9rem;
+    letter-spacing: 4px;
+  }
+
+  /* Envelope Intro Screen */
+  .envelope-wrapper {
+    width: 90vw;
+    max-width: 320px;
+    height: 220px;
+  }
+  .envelope .letter-preview {
+    padding: 16px 12px;
+  }
+  .preview-title {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+  .preview-names {
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+  .preview-date {
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+  }
+
+  /* Main Container */
+  .main-content {
+    padding: 0 12px 40px 12px;
+  }
+
+  /* Hero Section */
+  .art-deco-arch {
+    padding: 30px 14px;
+    border-radius: 120px 120px 16px 16px;
+  }
+  .hero-subheading {
+    font-size: 1rem;
+    letter-spacing: 3px;
+  }
+  .hero-date-badge {
+    font-size: 0.85rem;
+  }
+  .hero-bride-name, .hero-groom-name {
+    font-size: clamp(2rem, 8.5vw, 3rem);
+  }
+  .hero-ampersand {
+    font-size: 2.2rem;
+    margin: 4px 0;
+  }
+  .hero-crest-img {
+    width: 90px;
+    height: 90px;
+  }
+
+  /* Invocation Card */
+  .deco-card {
+    padding: 30px 14px;
+  }
+  .bismillah-img {
+    max-width: 240px;
+  }
+  .host-main-name {
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+  }
+  .person-name {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
+  .event-gregorian-date {
+    font-size: 1.25rem;
+  }
+
+  /* Countdown Grid */
+  .timer-grid {
+    gap: 4px;
+  }
+  .timer-box {
+    min-width: 60px;
+    padding: 10px 4px;
+  }
+  .timer-num {
+    font-size: 1.5rem;
+  }
+  .timer-label {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+  .timer-colon {
+    font-size: 1.2rem;
+  }
+
+  /* Timeline & Venue Cards */
+  .timeline-card {
+    width: 96%;
+    padding: 16px 12px;
+  }
+  .venue-card {
+    padding: 18px 12px;
+  }
+  .map-link-btn {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px;
+  }
+
+  /* Action Buttons */
+  .action-buttons-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .action-btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  /* Contact Links */
+  .contact-links {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .phone-sep {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .scratch-card-wrapper {
+    width: 94vw;
+    height: min(420px, calc(100vh - 80px));
+  }
+  .hero-bride-name, .hero-groom-name {
+    font-size: 1.8rem;
+  }
+  .timer-box {
+    min-width: 52px;
+    padding: 8px 2px;
+  }
+  .timer-num {
+    font-size: 1.3rem;
+  }
+}
