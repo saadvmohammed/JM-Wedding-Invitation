@@ -236,6 +236,214 @@ body[data-theme="ivory-marble"] .theme-toggle-btn .icon-moon {
 }
 
 /* --------------------------------------------------------------------------
+   2.5. Scratch to Reveal Teaser Overlay
+   -------------------------------------------------------------------------- */
+.scratch-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1100;
+  background: var(--bg-primary);
+  background-image: radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 90%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+  touch-action: none;
+}
+
+.scratch-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.scratch-card-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 480px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--gold-shadow);
+  border: 2px solid var(--gold-primary);
+  background: var(--bg-card);
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.3s ease, border-color 0.4s ease;
+}
+
+@media (max-width: 480px) {
+  .scratch-card-wrapper {
+    max-width: 320px;
+    height: 440px;
+  }
+}
+
+/* Revealed Content under the canvas */
+.scratch-revealed-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  text-align: center;
+  background: var(--bg-card);
+  border-radius: calc(var(--radius-lg) - 2px);
+  overflow: hidden;
+}
+
+.scratch-card-border-decor {
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed var(--gold-primary);
+  border-radius: calc(var(--radius-md));
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.scratch-revealed-seal {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 4px 10px var(--gold-shadow));
+}
+
+.scratch-revealed-subtitle {
+  font-family: var(--font-formal);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  margin-bottom: 6px;
+}
+
+.scratch-revealed-names {
+  font-family: var(--font-script);
+  font-size: 2.2rem;
+  line-height: 1.2;
+  color: var(--text-primary);
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+  padding: 0 10px;
+}
+
+.scratch-revealed-date {
+  font-family: var(--font-formal);
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: var(--gold-light);
+  text-shadow: 0 0 15px var(--gold-shadow);
+  margin-bottom: 12px;
+}
+
+.scratch-revealed-tagline {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.scratch-sparkles {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  color: var(--gold-primary);
+  opacity: 0.8;
+}
+
+/* Canvas Overlay Layer */
+.scratch-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  transition: opacity 0.8s ease;
+  z-index: 2;
+}
+
+.scratch-canvas:active {
+  cursor: grabbing;
+}
+
+.scratch-canvas.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hint Hand Animation */
+.scratch-hint {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.scratch-hint.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.scratch-hint-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(13, 13, 15, 0.75);
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 10px var(--gold-shadow);
+  animation: scratchWiggle 2s infinite ease-in-out;
+}
+
+body[data-theme="ivory-marble"] .scratch-hint-icon {
+  background: rgba(252, 249, 242, 0.85);
+  color: var(--gold-primary);
+}
+
+.scratch-hint-text {
+  font-family: var(--font-formal);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  white-space: nowrap;
+}
+
+body[data-theme="ivory-marble"] .scratch-hint-text {
+  color: var(--text-primary);
+  text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+}
+
+@keyframes scratchWiggle {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  20% { transform: translateX(-15px) rotate(-10deg); }
+  40% { transform: translateX(15px) rotate(10deg); }
+  60% { transform: translateX(-10px) rotate(-5deg); }
+  80% { transform: translateX(10px) rotate(5deg); }
+}
+
+/* --------------------------------------------------------------------------
    3. Envelope Intro Overlay & 3D Opening Animation
    -------------------------------------------------------------------------- */
 .envelope-overlay {

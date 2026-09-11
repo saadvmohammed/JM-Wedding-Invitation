@@ -20,10 +20,227 @@ document.addEventListener('DOMContentLoaded', () => {
 
     body.setAttribute('data-theme', newTheme);
     localStorage.setItem('wedding_theme', newTheme);
+
+    if (!scratchedThresholdMet && scratchCanvas && scratchCardWrapper) {
+      const rect = scratchCardWrapper.getBoundingClientRect();
+      drawFoilLayer(rect.width, rect.height);
+    }
   }
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', toggleTheme);
+  }
+
+  /* ------------------------------------------------------------------------
+     1.5. Scratch to Reveal Teaser Card Interaction
+     ------------------------------------------------------------------------ */
+  const scratchOverlay = document.getElementById('scratchOverlay');
+  const scratchCardWrapper = document.getElementById('scratchCardWrapper');
+  const scratchCanvas = document.getElementById('scratchCanvas');
+  const scratchHint = document.getElementById('scratchHint');
+  let scratchCtx = null;
+  let isScratching = false;
+  let scratchedThresholdMet = false;
+  let lastPos = { x: 0, y: 0 };
+  let brushRadius = 30;
+
+  function initScratchCanvas() {
+    if (!scratchCanvas || !scratchCardWrapper) return;
+
+    scratchCtx = scratchCanvas.getContext('2d');
+    const rect = scratchCardWrapper.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    scratchCanvas.width = rect.width * dpr;
+    scratchCanvas.height = rect.height * dpr;
+    scratchCtx.scale(dpr, dpr);
+
+    brushRadius = rect.width < 350 ? 25 : 32;
+
+    drawFoilLayer(rect.width, rect.height);
+  }
+
+  function drawFoilLayer(w, h) {
+    if (!scratchCtx) return;
+
+    const isIvory = body.getAttribute('data-theme') === 'ivory-marble';
+
+    // Base Metallic Gold Foil Gradient
+    const goldGrad = scratchCtx.createLinearGradient(0, 0, w, h);
+    if (isIvory) {
+      goldGrad.addColorStop(0, '#f9ecd0');
+      goldGrad.addColorStop(0.35, '#d4af57');
+      goldGrad.addColorStop(0.7, '#aa8736');
+      goldGrad.addColorStop(1, '#7a5d1f');
+    } else {
+      goldGrad.addColorStop(0, '#fcf4dd');
+      goldGrad.addColorStop(0.3, '#e8c874');
+      goldGrad.addColorStop(0.65, '#c9a24b');
+      goldGrad.addColorStop(1, '#8c6721');
+    }
+
+    scratchCtx.save();
+    scratchCtx.globalCompositeOperation = 'source-over';
+    scratchCtx.fillStyle = goldGrad;
+    scratchCtx.fillRect(0, 0, w, h);
+
+    // Subtle brushed metallic & glitter texture pattern
+    const particleCount = Math.floor((w * h) / 120);
+    for (let i = 0; i < particleCount; i++) {
+      const px = Math.random() * w;
+      const py = Math.random() * h;
+      const pSize = Math.random() * 2 + 0.5;
+      const isLight = Math.random() > 0.4;
+      scratchCtx.fillStyle = isLight 
+        ? `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1})` 
+        : `rgba(100, 70, 20, ${Math.random() * 0.25 + 0.05})`;
+      scratchCtx.fillRect(px, py, pSize, pSize);
+    }
+
+    // Inner dashed border on foil
+    scratchCtx.strokeStyle = isIvory ? 'rgba(122, 93, 31, 0.4)' : 'rgba(255, 240, 190, 0.45)';
+    scratchCtx.lineWidth = 1.5;
+    scratchCtx.setLineDash([6, 6]);
+    scratchCtx.strokeRect(12, 12, w - 24, h - 24);
+    scratchCtx.setLineDash([]);
+
+    // Centered foil title text
+    scratchCtx.textAlign = 'center';
+    scratchCtx.textBaseline = 'middle';
+    scratchCtx.font = '600 13px "Cinzel", serif';
+    scratchCtx.fillStyle = isIvory ? '#402e0c' : '#261b05';
+    scratchCtx.fillText('✦  SCRATCH TO REVEAL  ✦', w / 2, h / 2 - 15);
+
+    scratchCtx.font = 'italic 13px "Libre Baskerville", serif';
+    scratchCtx.fillStyle = isIvory ? '#594116' : '#47330d';
+    scratchCtx.fillText('Drag across to unlock the date', w / 2, h / 2 + 15);
+
+    scratchCtx.restore();
+  }
+
+  function getPointerPos(e) {
+    const rect = scratchCanvas.getBoundingClientRect();
+    let clientX = e.clientX;
+    let clientY = e.clientY;
+
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    }
+
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top
+    };
+  }
+
+  function scratchAlongPath(start, end) {
+    if (!scratchCtx || scratchedThresholdMet) return;
+
+    scratchCtx.save();
+    scratchCtx.globalCompositeOperation = 'destination-out';
+    scratchCtx.lineWidth = brushRadius * 2;
+    scratchCtx.lineCap = 'round';
+    scratchCtx.lineJoin = 'round';
+
+    scratchCtx.beginPath();
+    scratchCtx.moveTo(start.x, start.y);
+    scratchCtx.lineTo(end.x, end.y);
+    scratchCtx.stroke();
+
+    // Soft outer brush edge
+    scratchCtx.beginPath();
+    scratchCtx.arc(end.x, end.y, brushRadius, 0, Math.PI * 2);
+    scratchCtx.fill();
+
+    scratchCtx.restore();
+  }
+
+  function startScratch(e) {
+    if (scratchedThresholdMet) return;
+    isScratching = true;
+    if (scratchHint) scratchHint.classList.add('hidden');
+    lastPos = getPointerPos(e);
+    scratchAlongPath(lastPos, lastPos);
+  }
+
+  function moveScratch(e) {
+    if (!isScratching || scratchedThresholdMet) return;
+    if (e.cancelable) e.preventDefault(); // Prevent touch scrolling
+    const currentPos = getPointerPos(e);
+    scratchAlongPath(lastPos, currentPos);
+    lastPos = currentPos;
+
+    // Check percentage during active drag
+    checkScratchPercentage();
+  }
+
+  function endScratch() {
+    if (!isScratching) return;
+    isScratching = false;
+    checkScratchPercentage();
+  }
+
+  function checkScratchPercentage() {
+    if (scratchedThresholdMet || !scratchCtx) return;
+
+    const w = scratchCanvas.width;
+    const h = scratchCanvas.height;
+    if (w === 0 || h === 0) return;
+
+    const imageData = scratchCtx.getImageData(0, 0, w, h);
+    const pixels = imageData.data;
+    let clearedCount = 0;
+    const stride = 32; // downsampled for performance
+    const totalSampled = pixels.length / stride;
+
+    for (let i = 3; i < pixels.length; i += stride) {
+      if (pixels[i] < 128) {
+        clearedCount++;
+      }
+    }
+
+    const percentage = (clearedCount / totalSampled) * 100;
+
+    if (percentage >= 50) {
+      triggerScratchReveal();
+    }
+  }
+
+  function triggerScratchReveal() {
+    if (scratchedThresholdMet) return;
+    scratchedThresholdMet = true;
+
+    if (scratchCanvas) scratchCanvas.classList.add('fade-out');
+
+    setTimeout(() => {
+      if (scratchOverlay) {
+        scratchOverlay.classList.add('fade-out');
+        setTimeout(() => {
+          scratchOverlay.style.display = 'none';
+        }, 800);
+      }
+    }, 1000);
+  }
+
+  if (scratchCanvas) {
+    // Pointer, Mouse, and Touch Listeners
+    scratchCanvas.addEventListener('pointerdown', startScratch);
+    scratchCanvas.addEventListener('mousedown', startScratch);
+    scratchCanvas.addEventListener('touchstart', startScratch, { passive: false });
+
+    window.addEventListener('pointermove', moveScratch, { passive: false });
+    window.addEventListener('mousemove', moveScratch, { passive: false });
+    window.addEventListener('touchmove', moveScratch, { passive: false });
+
+    window.addEventListener('pointerup', endScratch);
+    window.addEventListener('mouseup', endScratch);
+    window.addEventListener('touchend', endScratch);
+
+    initScratchCanvas();
+    window.addEventListener('resize', () => {
+      if (!scratchedThresholdMet) initScratchCanvas();
+    });
   }
 
   /* ------------------------------------------------------------------------

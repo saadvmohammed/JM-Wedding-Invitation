@@ -48,6 +48,40 @@
     </button>
   </div>
 
+  <!-- SECTION 0: SCRATCH TO REVEAL TEASER CARD -->
+  <div id="scratchOverlay" class="scratch-overlay">
+    <div class="scratch-card-wrapper" id="scratchCardWrapper">
+      
+      <!-- Revealed Message Layer (Underneath Canvas) -->
+      <div class="scratch-revealed-content" id="scratchRevealedContent">
+        <div class="scratch-card-border-decor"></div>
+        <img src="assets/jm-seal.svg" alt="JM Monogram" class="scratch-revealed-seal">
+        <span class="scratch-revealed-subtitle">Nikah &amp; Valima</span>
+        <h2 class="scratch-revealed-names">Noor-E-Chashme &amp; Jasim</h2>
+        <div class="scratch-revealed-date">15 · 10 · 2026</div>
+        <p class="scratch-revealed-tagline">A celebration awaits.</p>
+        <div class="scratch-sparkles">✨ &nbsp; ✦ &nbsp; ✨</div>
+      </div>
+
+      <!-- Gold Foil Canvas Layer -->
+      <canvas id="scratchCanvas" class="scratch-canvas"></canvas>
+
+      <!-- Handwritten Pointer / Scratch Hint Animation -->
+      <div id="scratchHint" class="scratch-hint">
+        <div class="scratch-hint-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/>
+            <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6"/>
+            <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/>
+            <path d="M18 8a2 2 0 0 1 2 2v4a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6v-1.5"/>
+          </svg>
+        </div>
+        <span class="scratch-hint-text">Scratch to reveal</span>
+      </div>
+
+    </div>
+  </div>
+
   <!-- SECTION 1: ENVELOPE INTRO SCREEN -->
   <div id="envelopeOverlay" class="envelope-overlay">
     <div class="envelope-wrapper">
