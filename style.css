@@ -471,10 +471,12 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
 
 .envelope-wrapper {
   perspective: 1200px;
-  width: 100%;
+  width: 90vw;
   max-width: 420px;
-  height: 280px;
+  height: 270px;
+  margin: 0 auto;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .envelope {
@@ -488,19 +490,20 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
   transform-style: preserve-3d;
   transition: var(--transition-theme);
   cursor: pointer;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .flap.top-flap {
   position: absolute;
   top: 0;
   left: 0;
-  width: 0;
-  height: 0;
-  border-left: 210px solid transparent;
-  border-right: 210px solid transparent;
-  border-top: 155px solid var(--envelope-flap);
+  width: 100%;
+  height: 55%;
+  background: var(--envelope-flap);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s ease;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease;
   z-index: 5;
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
 }
@@ -514,15 +517,14 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 0;
-  height: 0;
-  border-left: 210px solid var(--envelope-bg);
-  border-right: 210px solid var(--envelope-bg);
-  border-bottom: 140px solid var(--envelope-pocket);
-  border-top: 140px solid transparent;
+  width: 100%;
+  height: 100%;
+  background: var(--envelope-pocket);
+  clip-path: polygon(0 40%, 50% 68%, 100% 40%, 100% 100%, 0 100%);
   z-index: 4;
   border-radius: 0 0 8px 8px;
-  transition: border-color 0.4s ease;
+  transition: background-color 0.4s ease;
+  pointer-events: none;
 }
 
 .letter-preview {

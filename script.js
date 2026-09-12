@@ -282,10 +282,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 800);
   }
 
-  if (waxSealBtn) waxSealBtn.addEventListener('click', openEnvelope);
-  if (envelope) envelope.addEventListener('click', openEnvelope);
-  if (envelopeWrapper) envelopeWrapper.addEventListener('click', openEnvelope);
-  if (envelopeOverlay) envelopeOverlay.addEventListener('click', openEnvelope);
+  // Unified Envelope Tap Listeners
+  const envelopeElements = [envelopeOverlay, envelopeWrapper, envelope, waxSealBtn];
+  envelopeElements.forEach(el => {
+    if (el) {
+      el.addEventListener('click', openEnvelope);
+      el.addEventListener('touchstart', openEnvelope, { passive: true });
+    }
+  });
 
   /* ------------------------------------------------------------------------
      4. Tap-The-Monogram Easter Egg
@@ -293,7 +297,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const monograms = document.querySelectorAll('.interactive-monogram');
   monograms.forEach((m) => {
     m.addEventListener('click', (e) => {
-      e.stopPropagation();
+      if (!envelopeOpened) {
+        openEnvelope();
+      }
       playEnvelopeChimeSound();
       m.classList.add('pop-anim');
       setTimeout(() => m.classList.remove('pop-anim'), 600);
