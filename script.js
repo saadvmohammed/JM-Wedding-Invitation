@@ -263,6 +263,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (envelopeOpened) return;
     envelopeOpened = true;
 
+    const mainContent = document.getElementById('mainContent');
+    if (mainContent) {
+      mainContent.removeAttribute('aria-hidden');
+    }
+
     // Reset scroll position to top of page (Hero Section) with 'auto' for max compatibility
     window.scrollTo({ top: 0, behavior: 'auto' });
     document.documentElement.scrollTop = 0;
@@ -276,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
         envelopeOverlay.classList.add('opened');
         setTimeout(() => {
           envelopeOverlay.style.display = 'none';
+          envelopeOverlay.setAttribute('aria-hidden', 'true');
           window.scrollTo({ top: 0, behavior: 'auto' });
         }, 800);
       }

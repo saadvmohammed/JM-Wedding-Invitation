@@ -538,7 +538,9 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
   border-radius: 4px;
   padding: 15px;
   z-index: 2;
-  transition: transform 0.8s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease 0.3s, transform 0.8s ease-in-out, visibility 0.5s ease 0.3s;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -546,6 +548,8 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
 }
 
 .envelope.open .letter-preview {
+  opacity: 1;
+  visibility: visible;
   transform: translateY(-120px) scale(1.05);
   z-index: 6;
 }
@@ -594,8 +598,9 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
 }
 
 .wax-seal-img {
-  width: 95px;
-  height: 95px;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
   animation: pulseGlow 2.5s infinite ease-in-out;
 }
@@ -887,8 +892,9 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
 }
 
 .invocation-crest-img {
-  width: 52px;
-  height: 52px;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
   cursor: pointer;
   filter: drop-shadow(0 4px 10px var(--gold-shadow));
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -992,9 +998,14 @@ body[data-theme="ivory-marble"] .bismillah-img {
 }
 
 .with-text {
-  font-family: var(--font-script);
-  font-size: 2rem;
-  color: var(--gold-bright);
+  font-family: var(--font-formal);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  padding: 0 8px;
 }
 
 .inshallah-block {
