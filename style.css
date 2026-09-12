@@ -598,16 +598,17 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
 }
 
 .wax-seal-img {
-  width: 100px;
-  height: 100px;
+  width: 135px;
+  height: 135px;
   object-fit: contain;
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 0 18px var(--gold-light)) drop-shadow(0 0 30px rgba(212, 175, 55, 0.5)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
   animation: pulseGlow 2.5s infinite ease-in-out;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 @keyframes pulseGlow {
-  0%, 100% { filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5)) drop-shadow(0 0 4px var(--gold-primary)); }
-  50% { filter: drop-shadow(0 8px 20px rgba(0,0,0,0.7)) drop-shadow(0 0 15px var(--gold-light)); }
+  0%, 100% { filter: drop-shadow(0 0 15px var(--gold-primary)) drop-shadow(0 0 25px rgba(212, 175, 55, 0.4)) drop-shadow(0 6px 12px rgba(0,0,0,0.5)); }
+  50% { filter: drop-shadow(0 0 30px var(--gold-bright)) drop-shadow(0 0 45px rgba(255, 223, 118, 0.8)) drop-shadow(0 8px 20px rgba(0,0,0,0.7)); }
 }
 
 .seal-ripple {
@@ -816,11 +817,23 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
 }
 
 .hero-crest-img {
-  width: 80px;
-  height: 80px;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
   cursor: pointer;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
-  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 22px var(--gold-light)) drop-shadow(0 0 35px rgba(212, 175, 55, 0.5)) drop-shadow(0 4px 15px rgba(0,0,0,0.5));
+  animation: crestGlow 3s infinite ease-in-out;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.hero-crest-img:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 35px var(--gold-bright)) drop-shadow(0 0 50px rgba(255, 223, 118, 0.85)) drop-shadow(0 6px 20px rgba(0,0,0,0.6));
+}
+
+@keyframes crestGlow {
+  0%, 100% { filter: drop-shadow(0 0 18px var(--gold-primary)) drop-shadow(0 0 28px rgba(212, 175, 55, 0.4)) drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
+  50% { filter: drop-shadow(0 0 32px var(--gold-bright)) drop-shadow(0 0 48px rgba(255, 223, 118, 0.75)) drop-shadow(0 6px 18px rgba(0,0,0,0.6)); }
 }
 
 .interactive-monogram:active,
@@ -892,17 +905,18 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
 }
 
 .invocation-crest-img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   object-fit: contain;
   cursor: pointer;
-  filter: drop-shadow(0 4px 10px var(--gold-shadow));
+  filter: drop-shadow(0 0 20px var(--gold-light)) drop-shadow(0 0 35px rgba(212, 175, 55, 0.5)) drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+  animation: crestGlow 3s infinite ease-in-out;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .invocation-crest-img:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 6px 15px var(--gold-light));
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 32px var(--gold-bright)) drop-shadow(0 0 50px rgba(255, 223, 118, 0.8));
 }
 
 .bismillah-wrapper {
@@ -1440,13 +1454,24 @@ body[data-theme="midnight-gold"] .action-btn:hover {
 
 .footer-monogram-wrapper {
   margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .footer-monogram-img {
-  width: 40px;
-  height: 40px;
+  width: 175px;
+  height: 175px;
+  object-fit: contain;
   cursor: pointer;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 0 22px var(--gold-light)) drop-shadow(0 0 35px rgba(212, 175, 55, 0.5)) drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+  animation: crestGlow 3s infinite ease-in-out;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.footer-monogram-img:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 35px var(--gold-bright)) drop-shadow(0 0 50px rgba(255, 223, 118, 0.85));
 }
 
 .celebration-expired-badge {
@@ -1586,8 +1611,19 @@ body[data-theme="midnight-gold"] .action-btn:hover {
     margin: 4px 0;
   }
   .hero-crest-img {
-    width: 90px;
-    height: 90px;
+    width: 170px;
+    height: 170px;
+    max-width: 80vw;
+  }
+  .invocation-crest-img {
+    width: 140px;
+    height: 140px;
+    max-width: 75vw;
+  }
+  .footer-monogram-img {
+    width: 150px;
+    height: 150px;
+    max-width: 75vw;
   }
 
   /* Invocation Card */
