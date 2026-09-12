@@ -598,8 +598,8 @@ body[data-theme="ivory-marble"] .scratch-hint-text {
 }
 
 .wax-seal-img {
-  width: 135px;
-  height: 135px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   filter: drop-shadow(0 0 18px var(--gold-light)) drop-shadow(0 0 30px rgba(212, 175, 55, 0.5)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
   animation: pulseGlow 2.5s infinite ease-in-out;
