@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const py = Math.random() * h;
       const pSize = Math.random() * 2 + 0.5;
       const isLight = Math.random() > 0.4;
-      scratchCtx.fillStyle = isLight 
-        ? `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1})` 
+      scratchCtx.fillStyle = isLight
+        ? `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1})`
         : `rgba(100, 70, 20, ${Math.random() * 0.25 + 0.05})`;
       scratchCtx.fillRect(px, py, pSize, pSize);
     }
@@ -353,30 +353,45 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     7. Live Countdown Timer (15 Oct 2026, 12:30 PM IST)
+     7. Live Countdown Timer (15 Oct 2026, 12:30 PM Target)
      ------------------------------------------------------------------------ */
-  const targetDate = new Date('2026-10-15T12:30:00+05:30').getTime();
+  // Target: 15th October 2026 at 12:30:00 PM
+  const TARGET_WALL_CLOCK_MS = Date.UTC(2026, 9, 15, 12, 30, 0);
+
   const timerGrid = document.getElementById('timerGrid');
   const daysEl = document.getElementById('days');
   const hoursEl = document.getElementById('hours');
   const minutesEl = document.getElementById('minutes');
   const secondsEl = document.getElementById('seconds');
+  let countdownInterval = null;
 
   function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+    const now = new Date();
+    const currentWallClockMs = Date.UTC(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      now.getHours(),
+      now.getMinutes(),
+      now.getSeconds()
+    );
 
-    if (distance <= 0) {
+    const diff = TARGET_WALL_CLOCK_MS - currentWallClockMs;
+
+    if (diff <= 0) {
       if (timerGrid) {
         timerGrid.innerHTML = '<div class="celebration-expired-badge">Today is the day! 🌙</div>';
+      }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
       }
       return;
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff / 3600000) % 24);
+    const minutes = Math.floor((diff / 60000) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
     if (daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
     if (hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
@@ -384,8 +399,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
   }
 
+  countdownInterval = setInterval(updateCountdown, 1000);
   updateCountdown();
-  setInterval(updateCountdown, 1000);
 
   /* ------------------------------------------------------------------------
      8. Scroll Reveal Animations (Intersection Observer)
@@ -492,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
         osc.start(ctx.currentTime + i * 0.12);
         osc.stop(ctx.currentTime + i * 0.12 + 0.8);
       });
-    } catch (e) {}
+    } catch (e) { }
   }
 
   function startAmbientMusic() {
@@ -528,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       isPlaying = true;
       if (audioToggle) audioToggle.classList.add('playing');
-    } catch (err) {}
+    } catch (err) { }
   }
 
   function stopAmbientMusic() {
